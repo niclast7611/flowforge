@@ -12,9 +12,9 @@ import clsx from "clsx";
 import { Separator } from "@/components/ui/separator";
 import { Database, GitBranch, LucideMousePointerClick } from "lucide-react";
 import { menuOptions } from "@/lib/constants";
-import { ModeToggle } from "../global/mode-toggle";
+import { ModeToggle } from "./global/mode-toggle";
 
-const MenuOptions = () => {
+const Sidebar = () => {
   const pathName = usePathname();
 
   return (
@@ -81,4 +81,4 @@ const MenuOptions = () => {
   );
 };
 
-export default MenuOptions;
+export default Sidebar;
