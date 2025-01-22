@@ -10,9 +10,10 @@ const Settings = async () => {
   if (!authUser) {
     return null;
   }
+
   const user = await db.user.findUnique({
     where: {
-      clerkId: authUser.id,
+      clerkId: authUser?.id,
     },
   });
 
@@ -42,6 +43,21 @@ const Settings = async () => {
     return response;
   };
 
+  const updateUserInfo = async (name: string) => {
+    "use server";
+
+    const updateUser = await db.user.update({
+      where: {
+        clerkId: authUser.id,
+      },
+      data: {
+        name,
+      },
+    });
+
+    return updateUser;
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="sticky top-0 z-[10] flex items-center justify-between border-b bg-background/50 p-6 text-4xl backdrop-blur-lg">
@@ -59,7 +75,7 @@ const Settings = async () => {
           userImage={user?.profileImage}
           onUpload={uploadProfileImage}
         ></ProfilePicture>
-        <ProfileForm />
+        <ProfileForm user={user} updateUser={updateUserInfo} />
       </div>
     </div>
   );

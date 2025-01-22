@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -13,46 +13,50 @@ import {
 } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-// import { Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { EditUserProfileSchema } from "@/lib/types";
+import { User } from "@prisma/client";
 
-// type Props = {
-//   user: any;
-//   onUpdate?: any;
-// };
-//{ user, onUpdate }: Props
-const ProfileForm = () => {
-  //   const [isLoading, setIsLoading] = useState(false);
+type Props = {
+  user: User | null;
+  updateUser: (name: string) => Promise<User>;
+};
+
+const ProfileForm = ({ user, updateUser }: Props) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm<z.infer<typeof EditUserProfileSchema>>({
     mode: "onChange",
     resolver: zodResolver(EditUserProfileSchema),
-    // defaultValues: {
-    //   name: user.name,
-    //   email: user.email,
-    // },
+    defaultValues: {
+      name: user?.name || "",
+      email: user?.email || "",
+    },
   });
 
-  //   const handleSubmit = async (
-  //     values: z.infer<typeof EditUserProfileSchema>
-  //   ) => {
-  //     setIsLoading(true);
-  //     await onUpdate(values.name);
-  //     setIsLoading(false);
-  //   };
+  const handleSubmit = async (
+    values: z.infer<typeof EditUserProfileSchema>
+  ) => {
+    setIsLoading(true);
+    await updateUser(values.name);
+    setIsLoading(false);
+  };
 
-  //   useEffect(() => {
-  //     form.reset({ name: user.name, email: user.email });
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [user]);
+  useEffect(() => {
+    if (!user) return;
+
+    form.reset({ name: user?.name || "", email: user?.email || "" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <Form {...form}>
       <form
         className="flex flex-col gap-6"
-        // onSubmit={form.handleSubmit(handleSubmit)}
+        onSubmit={form.handleSubmit(handleSubmit)}
       >
         <FormField
-          //   disabled={isLoading}
+          disabled={isLoading}
           control={form.control}
           name="name"
           render={({ field }) => (
@@ -87,15 +91,14 @@ const ProfileForm = () => {
           type="submit"
           className="self-start hover:bg-[#2F006B] hover:text-white "
         >
-          {/* {isLoading ? (
+          {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Saving
             </>
           ) : (
             "Save User Settings"
-          )} */}
-          Save User Settings
+          )}
         </Button>
       </form>
     </Form>
