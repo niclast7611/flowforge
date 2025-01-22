@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
+import { UserButton } from "@clerk/nextjs";
 
 const InfoBar = () => {
   return (
@@ -38,6 +39,7 @@ const InfoBar = () => {
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
+      <UserButton />
     </div>
   );
 };
