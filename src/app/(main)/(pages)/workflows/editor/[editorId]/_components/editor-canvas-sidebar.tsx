@@ -11,7 +11,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CONNECTIONS, EditorCanvasDefaultCardTypes } from "@/lib/constants";
 import { EditorCanvasType, EditorNodeType } from "@/lib/types";
 import { useEditor } from "@/providers/editor-provider";
-import { useNodeConnections } from "@xyflow/react";
 import { useEffect } from "react";
 import EditorCanvasIconHelper from "./editor-canvas-icon-helper";
 import {
@@ -22,6 +21,8 @@ import {
 } from "@/components/ui/accordion";
 import { onDragStart } from "@/lib/editor-utils";
 import RenderConnectionAccordion from "./render-connection-accordion";
+import RenderOutputAccordion from "./render-output-accordion";
+import { useNodeConnections } from "@/providers/connections-provider";
 
 type Props = {
   nodes: EditorNodeType[];
@@ -29,7 +30,7 @@ type Props = {
 
 const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor();
-  // const { nodeConnection } = useNodeConnections();
+  const { nodeConnection } = useNodeConnections();
   //   const { googleFile, setSlackChannels } = useFuzzieStore();
   //   useEffect(() => {
   //     if (state) {
@@ -104,10 +105,10 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
               <AccordionTrigger className="!no-underline">
                 Action
               </AccordionTrigger>
-              {/* <RenderOutputAccordion
+              <RenderOutputAccordion
                 state={state}
                 nodeConnection={nodeConnection}
-              /> */}
+              />
             </AccordionItem>
           </Accordion>
         </TabsContent>
