@@ -49,7 +49,7 @@ const EditorCanvasCardSingle = ({ data }: Props) => {
         <CardHeader className="flex flex-row items-center gap-4">
           <div>{logo}</div>
           <div>
-            j<CardTitle className="text-md">{data.title}</CardTitle>
+            <CardTitle className="text-md">{data.title}</CardTitle>
             <CardDescription>
               <p className="text-xs text-muted-foreground/50">
                 <b className="text-muted-foreground/80">{nodeId}</b>

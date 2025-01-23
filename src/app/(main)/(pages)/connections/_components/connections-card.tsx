@@ -56,18 +56,18 @@ const ConnectionsCard = ({
       </CardHeader>
 
       <div className="flex flex-col items-center gap-2 p-4">
-        {/* {connected[type] ? (
+        {connected[title] ? (
           <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold text-white">
             Connected
           </div>
-        ) : ( */}
-        <Link
-          href={getRedirectUrl(title)}
-          className="bg-primary rounded-lg p-2 font-bold text-primary-foreground"
-        >
-          Connect
-        </Link>
-        {/* )} */}
+        ) : (
+          <Link
+            href={getRedirectUrl(title)}
+            className="bg-primary rounded-lg p-2 font-bold text-primary-foreground"
+          >
+            Connect
+          </Link>
+        )}
       </div>
     </Card>
   );

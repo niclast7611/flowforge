@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { EditorCanvasDefaultCardTypes } from "@/lib/constants";
+import { CONNECTIONS, EditorCanvasDefaultCardTypes } from "@/lib/constants";
 import { EditorCanvasType, EditorNodeType } from "@/lib/types";
 import { useEditor } from "@/providers/editor-provider";
 import { useNodeConnections } from "@xyflow/react";
@@ -21,6 +21,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { onDragStart } from "@/lib/editor-utils";
+import RenderConnectionAccordion from "./render-connection-accordion";
 
 type Props = {
   nodes: EditorNodeType[];
@@ -28,7 +29,7 @@ type Props = {
 
 const EditorCanvasSidebar = ({ nodes }: Props) => {
   const { state } = useEditor();
-  //   const { nodeConnection } = useNodeConnections();
+  // const { nodeConnection } = useNodeConnections();
   //   const { googleFile, setSlackChannels } = useFuzzieStore();
   //   useEffect(() => {
   //     if (state) {
@@ -90,13 +91,13 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
                 Account
               </AccordionTrigger>
               <AccordionContent>
-                {/* {CONNECTIONS.map((connection) => (
+                {CONNECTIONS.map((connection) => (
                   <RenderConnectionAccordion
                     key={connection.title}
                     state={state}
                     connection={connection}
                   />
-                ))} */}
+                ))}
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="Expected Output" className="px-2">
