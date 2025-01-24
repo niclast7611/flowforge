@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import {
   onCreateNodesEdges,
   onFlowPublish,
-} from "../_actions/workflow-conntactions";
+} from "../_actions/workflow-connections";
 
 type Props = {
   children: React.ReactNode;
