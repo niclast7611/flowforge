@@ -1,6 +1,7 @@
 "use server";
 import { Option } from "@/components/ui/multiple-selector";
 import { db } from "@/lib/db";
+// @ts-ignore
 import { auth, currentUser } from "@clerk/nextjs";
 
 export const getGoogleListener = async () => {
@@ -77,44 +78,35 @@ export const onCreateNodeTemplate = async (
           slackChannels: true,
         },
       });
-      // TODO: This file is a mess
+
       if (channelList) {
+        const existingChannels = JSON.parse(channelList.slackChannels || "[]");
         //remove duplicates before insert
-        const NonDuplicated = channelList.slackChannels.filter(
-          (channel) => channel !== channels![0].value
+        const newChannel = channels![0].value;
+        const uniqueChannels = existingChannels.filter(
+          (channel: string) => channel !== newChannel
         );
 
-        NonDuplicated!
-          .map((channel) => channel)
-          .forEach(async (channel) => {
-            await db.workflows.update({
-              where: {
-                id: workflowId,
-              },
-              data: {
-                slackChannels: {
-                  push: channel,
-                },
-              },
-            });
-          });
+        await db.workflows.update({
+          where: {
+            id: workflowId,
+          },
+          data: {
+            slackChannels: JSON.stringify([...uniqueChannels, newChannel]),
+          },
+        });
 
         return "Slack template saved";
       }
-      channels!
-        .map((channel) => channel.value)
-        .forEach(async (channel) => {
-          await db.workflows.update({
-            where: {
-              id: workflowId,
-            },
-            data: {
-              slackChannels: {
-                push: channel,
-              },
-            },
-          });
-        });
+      const channelValues = channels!.map((channel) => channel.value);
+      await db.workflows.update({
+        where: {
+          id: workflowId,
+        },
+        data: {
+          slackChannels: JSON.stringify(channelValues),
+        },
+      });
       return "Slack template saved";
     }
   }
