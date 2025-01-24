@@ -43,6 +43,7 @@ export async function POST(req: NextRequest) {
                   url: true,
                 },
               })
+              console.log(discordMessage)
               if (discordMessage) {
                 await postContentToWebHook(
                   flow.discordTemplate!,

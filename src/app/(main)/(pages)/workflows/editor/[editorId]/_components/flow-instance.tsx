@@ -26,8 +26,8 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
     console.log("isFlow", isFlow);
     const flow = await onCreateNodesEdges(
       pathname.split("/").pop()!,
-      JSON.stringify(nodes),
-      JSON.stringify(edges),
+      nodes,
+      edges,
       JSON.stringify(isFlow)
     );
     if (flow) toast.message(flow.message);

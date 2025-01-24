@@ -5,8 +5,8 @@ import { currentUser } from "@clerk/nextjs/server";
 
 export const onCreateNodesEdges = async (
   flowId: string,
-  nodes: string,
-  edges: string,
+  nodes: any,
+  edges: any,
   flowPath: string
 ) => {
   console.log("HIYA", flowId, nodes, edges, flowPath);
@@ -81,23 +81,19 @@ export const onCreateNodeTemplate = async (
         },
       });
 
-      if (channelList) {
+      if (channelList && channels && channels.length > 0) {
         const existingChannels = JSON.parse(channelList.slackChannels || "[]");
-        //remove duplicates before insert
-        const newChannel = channels![0].value;
+        const newChannel = channels[0].value;
         const uniqueChannels = existingChannels.filter(
           (channel: string) => channel !== newChannel
         );
 
         await db.workflows.update({
-          where: {
-            id: workflowId,
-          },
+          where: { id: workflowId },
           data: {
             slackChannels: JSON.stringify([...uniqueChannels, newChannel]),
           },
         });
-
         return "Slack template saved";
       }
       const channelValues = channels!.map((channel) => channel.value);
