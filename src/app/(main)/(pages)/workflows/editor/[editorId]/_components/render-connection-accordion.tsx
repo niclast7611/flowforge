@@ -69,6 +69,8 @@ const RenderConnectionAccordion = ({
   const { slackChannels, selectedSlackChannels, setSelectedSlackChannels } =
     useFuzzieStore();
 
+  console.log("slackChannels", slackChannels);
+
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 

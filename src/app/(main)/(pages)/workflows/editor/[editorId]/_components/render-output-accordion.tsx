@@ -22,8 +22,8 @@ const RenderOutputAccordion = ({ state, nodeConnection }: Props) => {
       newState={state}
       file={googleFile}
       setFile={setGoogleFile}
-      selectedChannels={selectedSlackChannels}
-      setSelectedChannels={setSelectedSlackChannels}
+      selectedSlackChannels={selectedSlackChannels}
+      setSelectedSlackChannels={setSelectedSlackChannels}
     />
   );
 };

@@ -26,11 +26,12 @@ export async function GET(req: NextRequest) {
 
     const data = await response.json()
 
+    console.log('Route Data', data)
     // Check if the response indicates a failure
     if (!data.ok) {
       throw new Error(data.error || 'Slack OAuth failed')
     }
-
+    console.log('Made it past')
     if (!!data?.ok) {
       const appId = data?.app_id
       const userId = data?.authed_user?.id

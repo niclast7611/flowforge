@@ -22,6 +22,7 @@ export async function GET(req: NextRequest) {
       }),
     });
     if (response) {
+      console.log('Notion response', response.data);
       const notion = new Client({
         auth: response.data.access_token,
       });
@@ -35,6 +36,7 @@ export async function GET(req: NextRequest) {
           timestamp: 'last_edited_time',
         },
       });
+      console.log('Notion databasesPages', databasesPages);
       const databaseId = databasesPages?.results?.length
         ? databasesPages.results[0].id
         : '';

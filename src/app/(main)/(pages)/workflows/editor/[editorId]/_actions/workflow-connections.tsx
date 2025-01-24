@@ -1,11 +1,9 @@
 "use server";
 import { Option } from "@/components/ui/multiple-selector";
 import { db } from "@/lib/db";
-// @ts-ignore
-import { auth, currentUser } from "@clerk/nextjs";
-
+import { currentUser, auth } from "@clerk/nextjs/server";
 export const getGoogleListener = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (userId) {
     const listener = await db.user.findUnique({
