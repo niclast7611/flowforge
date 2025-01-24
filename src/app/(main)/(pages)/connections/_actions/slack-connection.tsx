@@ -76,7 +76,7 @@ export async function listBotChannels(
 
     if (!data.ok) throw new Error(data.error);
     if (!data?.channels?.length) return [];
-    console.log("Bot channels:", data.channels);
+
     return data.channels
       .filter((ch: any) => ch.is_member)
       .map((ch: any) => {

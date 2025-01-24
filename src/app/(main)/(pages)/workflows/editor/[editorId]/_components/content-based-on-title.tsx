@@ -51,7 +51,6 @@ const ContentBasedOnTitle = ({
   const { selectedNode } = newState.editor;
   const title = selectedNode.data.title;
 
-  // TODO: Fetch file from google drive
   // useEffect(() => {
   //   const reqGoogle = async () => {
   //     const response: { data: { message: { files: any } } } = await axios.get(
@@ -88,7 +87,7 @@ const ContentBasedOnTitle = ({
         ];
 
   if (!isConnected) return <p>Not connected</p>;
-
+  console.log("nodeConnection", nodeConnection);
   return (
     <AccordionContent>
       <Card>

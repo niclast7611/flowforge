@@ -75,7 +75,7 @@ const ActionButton = ({
     }
   }, [nodeConnection.slackNode, channels]);
 
-  const onCreateLocalNodeTempate = useCallback(async () => {
+  const onCreateLocalNodeTemplate = useCallback(async () => {
     if (currentService === "Discord") {
       const response = await onCreateNodeTemplate(
         nodeConnection.discordNode.content,
@@ -88,6 +88,13 @@ const ActionButton = ({
       }
     }
     if (currentService === "Slack") {
+      console.log(
+        nodeConnection.slackNode.content,
+        currentService,
+        pathname.split("/").pop()!,
+        channels,
+        nodeConnection.slackNode.slackAccessToken
+      );
       const response = await onCreateNodeTemplate(
         nodeConnection.slackNode.content,
         currentService,
@@ -95,7 +102,6 @@ const ActionButton = ({
         channels,
         nodeConnection.slackNode.slackAccessToken
       );
-
       if (response) {
         toast.message(response);
       }
@@ -125,7 +131,7 @@ const ActionButton = ({
             <Button variant="outline" onClick={onSendDiscordMessage}>
               Test Message
             </Button>
-            <Button onClick={onCreateLocalNodeTempate} variant="outline">
+            <Button onClick={onCreateLocalNodeTemplate} variant="outline">
               Save Template
             </Button>
           </>
@@ -137,7 +143,7 @@ const ActionButton = ({
             <Button variant="outline" onClick={onStoreNotionContent}>
               Test
             </Button>
-            <Button onClick={onCreateLocalNodeTempate} variant="outline">
+            <Button onClick={onCreateLocalNodeTemplate} variant="outline">
               Save Template
             </Button>
           </>
@@ -149,7 +155,7 @@ const ActionButton = ({
             <Button variant="outline" onClick={onStoreSlackContent}>
               Send Message
             </Button>
-            <Button onClick={onCreateLocalNodeTempate} variant="outline">
+            <Button onClick={onCreateLocalNodeTemplate} variant="outline">
               Save Template
             </Button>
           </>

@@ -24,6 +24,7 @@ const GoogleDriveFiles = () => {
 
   const onListener = async () => {
     const listener = await getGoogleListener();
+    console.log(listener);
     if (listener?.googleResourceId !== null) {
       setIsListening(true);
     }

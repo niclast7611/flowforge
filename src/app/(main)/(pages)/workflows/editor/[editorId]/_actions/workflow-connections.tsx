@@ -1,24 +1,28 @@
 "use server";
 import { Option } from "@/components/ui/multiple-selector";
 import { db } from "@/lib/db";
-import { currentUser, auth } from "@clerk/nextjs/server";
-export const getGoogleListener = async () => {
-  const { userId } = await auth();
+import { currentUser } from "@clerk/nextjs/server";
 
-  if (userId) {
-    const listener = await db.user.findUnique({
-      where: {
-        clerkId: userId,
-      },
-      select: {
-        googleResourceId: true,
-      },
-    });
+export const onCreateNodesEdges = async (
+  flowId: string,
+  nodes: string,
+  edges: string,
+  flowPath: string
+) => {
+  console.log("HIYA", flowId, nodes, edges, flowPath);
+  const flow = await db.workflows.update({
+    where: {
+      id: flowId,
+    },
+    data: {
+      nodes,
+      edges,
+      flowPath: flowPath,
+    },
+  });
 
-    if (listener) return listener;
-  }
+  if (flow) return { message: "flow saved" };
 };
-
 export const onFlowPublish = async (workflowId: string, state: boolean) => {
   console.log(state);
   const published = await db.workflows.update({

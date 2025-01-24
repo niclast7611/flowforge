@@ -21,15 +21,17 @@ const FlowInstance = ({ children, edges, nodes }: Props) => {
   const { nodeConnection } = useNodeConnections();
 
   const onFlowAutomation = useCallback(async () => {
+    console.log("nodes", nodes);
+    console.log("edges", edges);
+    console.log("isFlow", isFlow);
     const flow = await onCreateNodesEdges(
       pathname.split("/").pop()!,
       JSON.stringify(nodes),
       JSON.stringify(edges),
       JSON.stringify(isFlow)
     );
-
     if (flow) toast.message(flow.message);
-  }, [nodeConnection]);
+  }, [nodeConnection, edges, nodes]);
 
   const onPublishWorkflow = useCallback(async () => {
     const response = await onFlowPublish(pathname.split("/").pop()!, true);
