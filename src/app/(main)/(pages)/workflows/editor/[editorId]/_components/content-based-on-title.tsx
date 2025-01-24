@@ -14,6 +14,8 @@ import { EditorState } from "@/providers/editor-provider";
 import { Option } from "@/store";
 import React from "react";
 import GoogleFileDetails from "./google-file-details";
+import GoogleDriveFiles from "./google-drive-files";
+import ActionButton from "./action-button";
 
 type Props = {
   nodeConnection: ConnectionProviderProps;
@@ -94,6 +96,14 @@ const ContentBasedOnTitle = ({
               </CardContent>
             </Card>
           )}
+          {title === "Google Drive" && <GoogleDriveFiles />}
+
+          <ActionButton
+            currentService={title}
+            nodeConnection={nodeConnection}
+            channels={selectedChannels}
+            setChannels={setSelectedChannels}
+          />
         </div>
       </Card>
     </AccordionContent>
