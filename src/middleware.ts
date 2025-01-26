@@ -6,7 +6,8 @@ const publicRoutes = createRouteMatcher([
   '/sign-in(.*)',
   '/sign-up(.*)', 
   '/api/clerk-webhook',
-  '/api/drive-activity/notification'
+  '/api/drive-activity/notification',
+  'api/payment/success',
 ]);
 
 // Define ignored routes that bypass the middleware completely

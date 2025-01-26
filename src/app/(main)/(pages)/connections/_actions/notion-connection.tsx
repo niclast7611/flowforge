@@ -93,7 +93,7 @@ export const onCreateNewPageInDatabase = async (
       name: [
         {
           text: {
-            content: "testing",
+            content: content,
           },
         },
       ],
